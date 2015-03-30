@@ -1,0 +1,31 @@
+#version 330
+
+// Fragment shader
+
+
+// These get passed in from the vertex shader and are interpolated (varying) properties,
+// so they change for each pixel across the triangle:
+in vec4 interpSurfPosition;
+in vec3 interpSurfNormal;
+
+// This is an out variable for the final color we want to render this fragment.
+out vec4 fragColor;
+
+void main() {
+
+    // Start with black and then add lighting to the final color as we calculate it
+	vec3 finalColor = vec3(0.0, 0.0, 0.0);
+
+	// TODO: Calculate ambient, diffuse, and specular lighting for this pixel based on its position, normal, etc.
+
+
+
+
+
+
+	// Tell OpenGL to use the r,g,b compenents of finalColor for the color of this fragment (pixel).
+	fragColor.rgb = finalColor.rgb;
+
+	// And, set the alpha component to 1.0 (completely opaque, no transparency).
+	fragColor.a = 1.0;
+}

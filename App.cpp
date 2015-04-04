@@ -156,10 +156,20 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
 
 	Args args;
 	// TODO: Pass these parameters into your shader programs... in shader programs these are called "uniform variables"
-	
+    
+    // Passing light intensity parameters to shader
+    args.setUniform("ambientLightIntensity", ambientLightIntensity);
+    args.setUniform("diffuseLightIntensity", diffuseLightIntensity);
+    args.setUniform("specularLightIntensity", specularLightIntensity);
 
-
-
+    // Passing material coefficients to shader
+    args.setUniform("ambientReflectionCoeff", ambientReflectionCoeff);
+    args.setUniform("diffuseReflectionCoeff", diffuseReflectionCoeff);
+    args.setUniform("specularReflectionCoeff", specularReflectionCoeff);
+    args.setUniform("specularExponent", specularExponent);
+    
+    //TODO: Set shader light properties (intensity)
+    args.setUniform("lightPosition", lightPosition);
 
 
 

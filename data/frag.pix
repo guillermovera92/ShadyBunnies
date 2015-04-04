@@ -11,20 +11,48 @@ in vec3 interpSurfNormal;
 // This is an out variable for the final color we want to render this fragment.
 out vec4 fragColor;
 
+//uniform variable for the light position
+uniform vec4 lightPosition; // in world coordinates
+
+// Passing in uniform variables
+
+// Light Properties
+uniform vec3 ambientLightIntensity;
+uniform vec3 diffuseLightIntensity;
+uniform vec3 specularLightIntensity;
+
+// Material Properties
+uniform float specularExponent;
+uniform vec3 ambientReflectionCoeff;
+uniform vec3 diffuseReflectionCoeff;
+uniform vec3 specularReflectionCoeff;
+
 void main() {
+    
+    vec3 eyePosWorld = Vector3(-0.3,0.8,0);
+    
+    // Let's try a new vector that is the vector from light position to vertex
+    vec3 lightVector = interpSurfPosition.xyz - lightPosition.xyz;
 
     // Start with black and then add lighting to the final color as we calculate it
 	vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
+    
+    vec3 halfway = normalize((interpSurfPosition.xyz - eyePosWorld) + lightVector)
+    
 	// TODO: Calculate ambient, diffuse, and specular lighting for this pixel based on its position, normal, etc.
+    vec3 ambient = ambientReflectionCoeff * ambientLightIntensity;
+    vec3 diffuse = diffuseReflectionCoeff * diffuseLightIntensity * dot(interpSurfNormal, lightVector);
+    // Calculating specular component using halfway vector
+    vec3 specular = specularReflectionCoeff * specularLightIntensity * pow(dot(halfway, interpSurfNormal), specularExponent);
+    
+    vec3 materialColor = ambient + diffuse + specular;
 
-
-
-
+    fragColor.rgb = materialColor;
 
 
 	// Tell OpenGL to use the r,g,b compenents of finalColor for the color of this fragment (pixel).
-	fragColor.rgb = finalColor.rgb;
+	//fragColor.rgb = finalColor.rgb;
 
 	// And, set the alpha component to 1.0 (completely opaque, no transparency).
 	fragColor.a = 1.0;

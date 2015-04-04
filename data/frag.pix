@@ -27,9 +27,17 @@ uniform vec3 ambientReflectionCoeff;
 uniform vec3 diffuseReflectionCoeff;
 uniform vec3 specularReflectionCoeff;
 
+//vec3 lightVector;
+vec3 halfway;
+vec3 specular;
+//vec3 diffuse;
+//vec3 ambient;
+vec3 materialColor;
+vec3 eyePosWorld;
+
 void main() {
     
-    vec3 eyePosWorld = Vector3(-0.3,0.8,0);
+    vec3 eyePosWorld = vec3(-0.3,0.8,0);
     
     // Let's try a new vector that is the vector from light position to vertex
     vec3 lightVector = interpSurfPosition.xyz - lightPosition.xyz;
@@ -38,7 +46,7 @@ void main() {
 	vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
     
-    vec3 halfway = normalize((interpSurfPosition.xyz - eyePosWorld) + lightVector)
+    vec3 halfway = normalize((interpSurfPosition.xyz - eyePosWorld) + lightVector);
     
 	// TODO: Calculate ambient, diffuse, and specular lighting for this pixel based on its position, normal, etc.
     vec3 ambient = ambientReflectionCoeff * ambientLightIntensity;

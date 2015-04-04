@@ -37,10 +37,10 @@ vec3 eyePosWorld;
 
 void main() {
     
-    vec3 eyePosWorld = vec3(-0.3,0.8,0);
+    vec3 eyePosWorld = vec3(0.3,-0.8,0);
     
     // Let's try a new vector that is the vector from light position to vertex
-    vec3 lightVector = interpSurfPosition.xyz - lightPosition.xyz;
+    vec3 lightVector = lightPosition.xyz - interpSurfPosition.xyz;
 
     // Start with black and then add lighting to the final color as we calculate it
 	vec3 finalColor = vec3(0.0, 0.0, 0.0);

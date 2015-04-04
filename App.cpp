@@ -170,6 +170,9 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
     
     //TODO: Set shader light properties (intensity)
     args.setUniform("lightPosition", lightPosition);
+    
+    // Pass texture to sample from
+    args.setUniform("textureSampler", diffuseRamp, Sampler());
 
 
 

@@ -8,6 +8,10 @@
 in vec4 interpSurfPosition;
 in vec3 interpSurfNormal;
 
+
+uniform sampler2D textureSampler; // This contains the sampler to use for shading
+
+
 // This is an out variable for the final color we want to render this fragment.
 out vec4 fragColor;
 
@@ -39,6 +43,7 @@ void main() {
     
     vec3 eyePosWorld = vec3(0.3,-0.8,0);
     
+    
     // Let's try a new vector that is the vector from light position to vertex
     vec3 lightVector = lightPosition.xyz - interpSurfPosition.xyz;
 
@@ -54,7 +59,9 @@ void main() {
     // Calculating specular component using halfway vector
     vec3 specular = specularReflectionCoeff * specularLightIntensity * pow(dot(halfway, interpSurfNormal), specularExponent);
     
-    vec3 materialColor = ambient + diffuse + specular;
+    vec3 materialColor = normalize(ambient + diffuse + specular);
+    
+    vec3 reflectedColor = texture(textureSampler, vec2(length(materialColor), 0)).xyz;
 
     fragColor.rgb = materialColor;
 

@@ -172,9 +172,11 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
     args.setUniform("lightPosition", lightPosition);
     
     // Pass texture to sample from
-    args.setUniform("textureSampler", diffuseRamp, Sampler());
+    args.setUniform("textureSamplerDiffuse", diffuseRamp, Sampler());
+    args.setUniform("textureSamplerSpecular", specularRamp, Sampler());
 
-
+    Vector3 eyePosWorld = activeCamera()->frame().translation;
+    args.setUniform("eyePosWorld", eyePosWorld);
 
 	// This tells OpenGL to draw the actual triangles that make up the bunny.
 	// All the vertices and pixels that make up the bunny will

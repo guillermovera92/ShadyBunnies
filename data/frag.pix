@@ -69,5 +69,8 @@ void main() {
     vec3 materialColor = ambient + diffuse + specular;
 
     fragColor.rgb = materialColor + finalColor.rgb; // Guillermo, can you confirm if it should just be materialColor or materialColor+finalColor?
+    
+    // And, set the alpha component to 1.0 (completely opaque, no transparency).
+    fragColor.a = 1.0;
 
 }

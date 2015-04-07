@@ -1,13 +1,13 @@
 Application Log
-Start: Sun Apr  5 17:14:28 2015
+Start: Mon Apr  6 19:54:39 2015
 
-Initializing System::findDataFile took 0.000671s
+Initializing System::findDataFile took 0.000675s
 WARNING: AudioDevice is not enabled. Set G3DSpecification::audio = true before invoking initGLG3D() to enable audio.
 
 Entering GApp::GApp()
 cwd = /Users/guillermovera/Desktop/comp394/ShadyBunniesStudent
-System::setAppDataDir("./build/")
-Initializing System::findDataFile took 0.000521s
+System::setAppDataDir("/Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/build/")
+Initializing System::findDataFile took 0.000480s
 Setting video mode
 Setting initial rendering state.
 Done setting initial state.
@@ -136,7 +136,7 @@ NetworkDevice: Ignored adapter en2 because ip = 0
 NetworkDevice: Ignored adapter p2p0 because ip = 0
 System = { 
     App { 
-        Name = "./build/ShadyBunniesStudentd"
+        Name = "/Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/build/ShadyBunniesStudentd"
         cwd = "/Users/guillermovera/Desktop/comp394/ShadyBunniesStudent"
     } 
     
@@ -170,8 +170,8 @@ System = {
         Driver = "Unknown;"
         OpenGL version = "4.1 NVIDIA-10.2.1 310.41.15f01;"
         Textures = 16 ;
-        Texture coordinates = 1420390768 ;
-        Texture units = 1420390768 ;
+        Texture coordinates = 1455743168 ;
+        Texture units = 1455743168 ;
         GL_MAX_TEXTURE_SIZE = 16384 ;
         GL_MAX_CUBE_MAP_TEXTURE_SIZE = 16384 ;
         GL_MAX_COLOR_ATTACHMENTS = 8 ;
@@ -255,9 +255,9 @@ System = {
         Adapter0 ={ 
             hostname = ";"
             name = "en0;"
-            ip = "141.140.193. 90"; 
+            ip = "192.168.  0.  2"; 
             subnet = "255.255.255.  0"; 
-            broadcast = "141.140.193.255"; 
+            broadcast = "192.168.  0.255"; 
             mac = "b8:e8:56:37:79:8a"; 
         }; 
     }; 
@@ -279,7 +279,6 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-/Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/.
 /Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/data/bunny.obj
 /Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/data/frag.pix
 /Users/guillermovera/Desktop/comp394/ShadyBunniesStudent/data/lightingNormal.jpg

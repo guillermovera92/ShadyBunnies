@@ -38,8 +38,8 @@ void App::onInit() {
 	turntable->setCenterPosition(Vector3(-0.3,0.8,0));
 
 	//Loading textures
-	diffuseRamp = Texture::fromFile(DIFFUSE_RAMP, ImageFormat::AUTO(), Texture::DIM_2D);
-	specularRamp = Texture::fromFile(SPECULAR_RAMP, ImageFormat::AUTO(), Texture::DIM_2D);
+	diffuseRamp = Texture::fromFile(DIFFUSE_RAMP, ImageFormat::AUTO(), Texture::DIM_2D); //refers to lightingToon
+	specularRamp = Texture::fromFile(SPECULAR_RAMP, ImageFormat::AUTO(), Texture::DIM_2D); //refers to ligthingNormal
 
 }
 
@@ -172,8 +172,8 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
     args.setUniform("lightPosition", lightPosition);
     
     // Pass texture to sample from
-    args.setUniform("textureSamplerDiffuse", diffuseRamp, Sampler());
-    args.setUniform("textureSamplerSpecular", specularRamp, Sampler());
+    args.setUniform("textureSamplerDiffuse", diffuseRamp, Sampler::video());
+    args.setUniform("textureSamplerSpecular", specularRamp, Sampler::video());
 
     Vector3 eyePosWorld = activeCamera()->frame().translation;
     args.setUniform("eyePosWorld", eyePosWorld);

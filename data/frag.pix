@@ -34,20 +34,14 @@ uniform vec3 specularReflectionCoeff;
 
 uniform vec3 eyePosWorld;
 
-//vec3 lightVector;
 vec3 halfway;
 vec3 specular;
-//vec3 diffuse;
-//vec3 ambient;
 vec3 materialColor;
 
 
 void main() {
     
-    // vec3 eyePosWorld = vec3(0.3,-0.8,0);
-    
-    
-    // Let's try a new vector that is the vector from light position to vertex
+    // Defining all the required vectors
     vec3 lightVector = normalize(lightPosition.xyz - interpSurfPosition.xyz);
     vec3 eyeVector = normalize(eyePosWorld - interpSurfPosition.xyz);
     vec3 halfway = normalize(eyeVector + lightVector);
@@ -56,27 +50,24 @@ void main() {
     // Start with black and then add lighting to the final color as we calculate it
 	vec3 finalColor = vec3(0.0, 0.0, 0.0);
 
-    // vec3 specular = specularReflectionCoeff * specularLightIntensity * pow(dot(reflectedLightVector, eyePosWorld - interpSurfPosition.xyz), specularExponent);
-    // vec3 reflectedLightVector = normalize(lightVector - 2 * dot(lightVector, interpSurfNormal) * interpSurfNormal);
+	// Calculating ambient, diffuse, and specular lighting for this pixel based on its position, normal, etc.
     
-	// TODO: Calculate ambient, diffuse, and specular lighting for this pixel based on its position, normal, etc.
     vec3 ambient = ambientReflectionCoeff * ambientLightIntensity;
-    vec3 diffuse = diffuseReflectionCoeff * diffuseLightIntensity * dot(normal, lightVector);
-    // Calculating specular component using halfway vector
-    vec3 specular = specularReflectionCoeff * specularLightIntensity * pow(dot(halfway, normal), specularExponent);
+
+    // Diffuse component
+    float x_coordinate = clamp(dot(normal, lightVector), 0.0, 1.0);
+    // For Toon Shading
+    vec3 diffuse = diffuseReflectionCoeff * diffuseLightIntensity * texture(textureSamplerDiffuse, vec2(x_coordinate, 0.0)).xyz;
+
+    // For photorealistic shading, comment out line above and uncomment line below
+//    vec3 diffuse = diffuseReflectionCoeff * diffuseLightIntensity * texture(textureSamplerSpecular, vec2(x_coordinate, 0.0)).xyz;
+    
+    // Calculating specular component using halfway vector and looking it up from the texture sampler
+    x_coordinate = pow(clamp(dot(halfway, normal), 0.0, 1.0), specularExponent);
+    vec3 specular = specularReflectionCoeff * specularLightIntensity * texture(textureSamplerSpecular, vec2(x_coordinate, 0)).xyz;
     
     vec3 materialColor = ambient + diffuse + specular;
-    
-    vec3 reflectedColorDiffuse = texture(textureSamplerDiffuse, vec2(clamp(dot(normal, lightVector), 0, 1), 0)).xyz;
-    vec3 reflectedColorSpecular = texture(textureSamplerSpecular, vec2(clamp(dot(normal, lightVector), 0, 1), 0)).xyz;
 
-    // fragColor.rgb = finalColor + ambient + reflectedColorDiffuse + reflectedColorSpecular;
+    fragColor.rgb = materialColor + finalColor.rgb; // Guillermo, can you confirm if it should just be materialColor or materialColor+finalColor?
 
-    fragColor.rgb = materialColor;
-
-	// Tell OpenGL to use the r,g,b compenents of finalColor for the color of this fragment (pixel).
-	//fragColor.rgb = finalColor.rgb;
-
-	// And, set the alpha component to 1.0 (completely opaque, no transparency).
-	fragColor.a = 1.0;
 }
